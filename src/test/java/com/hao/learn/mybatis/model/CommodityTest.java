@@ -3,11 +3,13 @@ package com.hao.learn.mybatis.model;
 import com.hao.learn.mybatis.dao.CommodityDao;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Random;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,6 +33,7 @@ public class CommodityTest {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {
       CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
+
       List<Commodity> allCommodity = commodityDao.getAllCommodity();
       System.out.printf(allCommodity.toString());
     } finally {
@@ -45,6 +48,20 @@ public class CommodityTest {
       CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
       Commodity commodity = commodityDao.getCommodity(1001);
       System.out.printf(commodity.toString());
+    } finally {
+      sqlSession.close();
+    }
+  }
+
+  @Test
+  public void updateCommodityById() {
+    String newDescription = "Update by test case " + new Random().nextInt();
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+      CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
+      commodityDao.updateCommodity(1005, newDescription);
+      Commodity commodity = commodityDao.getCommodity(1005);
+      Assert.assertEquals(newDescription, commodity.getDescription());
     } finally {
       sqlSession.close();
     }
