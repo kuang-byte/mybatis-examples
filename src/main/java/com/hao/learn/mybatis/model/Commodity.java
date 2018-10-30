@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address {
-  private Integer addressId;
-  private String streetAddress;
-  private Integer personId;
+public class Commodity {
+  private Integer id;
+  private String name;
+  private Double price;
+  private String description;
 }
