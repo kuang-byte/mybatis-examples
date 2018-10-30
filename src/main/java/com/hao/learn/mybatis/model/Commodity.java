@@ -8,8 +8,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Commodity {
-  private Integer id;
+
+  private int id;
   private String name;
   private Double price;
   private String description;
+
+  public Commodity(String name, Double price, String description) {
+    this.name = name;
+    this.price = price;
+    this.description = description;
+  }
 }
