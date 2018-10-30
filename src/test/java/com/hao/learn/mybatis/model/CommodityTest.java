@@ -1,7 +1,5 @@
 package com.hao.learn.mybatis.model;
 
-import static org.junit.Assert.*;
-
 import com.hao.learn.mybatis.dao.CommodityDao;
 import java.io.InputStream;
 import java.util.List;
@@ -35,6 +33,18 @@ public class CommodityTest {
       CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
       List<Commodity> allCommodity = commodityDao.getAllCommodity();
       System.out.printf(allCommodity.toString());
+    } finally {
+      sqlSession.close();
+    }
+  }
+
+  @Test
+  public void getCommodityById() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    try {
+      CommodityDao commodityDao = sqlSession.getMapper(CommodityDao.class);
+      Commodity commodity = commodityDao.getCommodity(1001);
+      System.out.printf(commodity.toString());
     } finally {
       sqlSession.close();
     }
